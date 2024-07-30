@@ -29,6 +29,7 @@
         const { data } = await axios.get(apiUrl);
         setCallDetails(data);
         setLoading(false);
+        setArchivedStatus(data.is_archived);
         toast({
           title: 'Call Details retrieved successfully',
           position: 'top-right',

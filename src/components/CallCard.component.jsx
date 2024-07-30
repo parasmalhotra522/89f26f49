@@ -26,7 +26,7 @@ const CallCard = ({activity, fromCall}) => {
 
     //  changing the icons for call received answered and if its missed call....
     let icon, cellNumber;
-    console.log("Checking data on call card side", activity);
+    // console.log("Checking data on call card side", activity);
     if (call_type === 'missed') {
         icon = <FcMissedCall />
         cellNumber = fromCall; 
