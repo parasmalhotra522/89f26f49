@@ -112,7 +112,7 @@
       toast({
           title: 'Future Updates',
           position:'top-right',
-          description: "These features will be added in the future updates",
+          description: "These features will be added in the upcoming updates",
           status: 'warning',
           duration: 3000,
           isClosable: true,
