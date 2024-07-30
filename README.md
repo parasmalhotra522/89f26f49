@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+## Summary
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of this test is to make you code a small ReactJS app. We have prepared a skeleton app for you, but feel free to change anything (CSS files, HTML structure, JS structure, etc) to suit your needs.
 
-## Available Scripts
+The app should have the following features:
+- **Activity Feed** - simple list of calls
+- **Activity Detail** - detail of a call
+- **Archive** - the final user should be able to archive (and unarchive) a call. Archived calls will no longer be displayed on the Activity Feed and should have a separate Archived Tab.
+- A button to archive all calls in the activity feed
+- A button to unarchive all calls in the archived calls tab
 
-In the project directory, you can run:
+Show us what you can do in 48 hours. You will be assessed on the following parameters: 
+- Focus on design sense (Pay attention to the UI/UX and transitions)
+- React Best Practices
+- Code Readability and Maintainability
 
-### `npm start`
+## Submission Requirements
+After you're done with the assignment, please submit a link to the **GitHub/Bitbucket repository** (make sure it's public) with your code **AND** a deployment link where our recruiters can interact with the live version. You can use freely available tools like **Netlify, Vercel, Render, etc** to deploy your React application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Your repository name should be the first 8 digits of a UUID. A random UUID can be generated from any site like this one: https://www.uuidgenerator.net/version4. This is to prevent malicious actors from plagiarizing your submission by searching for it on GitHub, since your repository is public.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For example: Your respository name here will be `036b1c95` and the repository URL that you submit will look like: `https://github.com/<your-username>/036b1c95`
+<img width="782" alt="Screenshot 2024-01-10 at 10 07 47 PM" src="https://github.com/speer-technologies/aircall/assets/66385959/64fd4b89-e288-4e31-ad62-0949a686088a">
 
-### `npm test`
+Once done, the assessment (along with other details) must be submitted on the following Google Form and NOT via email: https://forms.gle/itbJiaZ1TjToL45D8
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Note:** Submissions that fail to comply with any of the above submission requirements will be removed from any further consideration.
 
-### `npm run build`
+To give you an example/reference, here's what the app could look like:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![app](https://user-images.githubusercontent.com/630714/29357034-763d7216-8276-11e7-8bcb-e77d9645dfcc.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+We're using [yarn](https://yarnpkg.com) here (but you can use npm):
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+yarn install
+yarn start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Note**: Please make sure to run the app in Node 16.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API documentation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Routes
 
-## Learn More
+Here is the base URL of the API: https://aircall-backend.onrender.com <br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The API is hosted on a free server, which is why the first time you call the API it might throw an error. The server goes to sleep if there hasn't been any activity for a while, but after 30-60 seconds of making the first call, it should work as expected. Please reach out to us in case it doesn't.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **GET** - BASE_URL/activities: get calls to display in the Activity Feed
+- **GET** - BASE_URL/activities/<call_id> retrieve a specific call details
+- **PATCH** - BASE_URL/activities/<call_id> update a call. The only field updatable is `is_archived (bool)`. You'll need to send a JSON in the request body:
+```
+{
+  is_archived: true
+}
+```
+- **PATCH** - BASE_URL/reset: Reset all calls to initial state (usefull if you archived all calls).
 
-### Code Splitting
+### Call object
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **id** - unique ID of call
+- **created_at** - creation date
+- **direction** - `inbound` or `outbound` call
+- **from** - caller's number
+- **to** - callee's number
+- **via** - Aircall number used for the call
+- **duration** - duration of a call (in seconds)
+- **is_archived** - call is archived or not
+- **call_type** - can be a `missed`, `answered` or `voicemail` call.
